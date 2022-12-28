@@ -39,6 +39,7 @@ class _NotificationsState extends State<Notifications> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xffEBE9E8),
       appBar: AppBar(
         leading: InkWell(
             onTap: () {
@@ -122,7 +123,7 @@ class _NotificationsState extends State<Notifications> {
                   max: 1,
                   divisions: 100,
                 ),
-                Icon(Icons.volume_off_outlined),
+                Icon(Icons.volume_up_outlined),
               ],
             ),
             Container(

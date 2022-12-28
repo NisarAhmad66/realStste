@@ -4,15 +4,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:real_state/page/botoomNavigation/bottomNavigationbar.dart';
+import 'package:real_state/service/service.dart';
 
 class MyUserOTPScreen extends StatefulWidget {
   final String Name;
+  final String LastName;
   final String Email;
   final String Phone;
   final String Password;
   MyUserOTPScreen({
     Key? key,
     required this.Name,
+    required this.LastName,
     required this.Email,
     required this.Phone,
     // required this.countryCode,
@@ -54,34 +57,32 @@ class _MyUserOTPScreenState extends State<MyUserOTPScreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Color(0xffEBE9E8),
       key: _scaffoldKey,
-      // appBar: AppBar(
-      //   // leading: IconButton(
-      //   //   onPressed: () {
-      //   //     Navigator.pop(context);
-      //   //   },
-      //   //   color: Colors.black,
-      //   //   icon: Icon(Icons.arrow_back_ios_new),
-      //   // ),
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0,
-      //   toolbarHeight: 120,
-      //   centerTitle: true,
-      //   // iconTheme: IconThemeData(color: Colors.black),
-      // ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: EdgeInsets.symmetric(vertical: 40, horizontal: 15),
           child: Form(
             key: _formKey,
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 20,
+                  // Container(
+                  //   height: 100,
+                  //   width: 200,
+                  //   decoration: BoxDecoration(
+                  //       // color: Colors.black,
+                  //       image: DecorationImage(
+                  //           fit: BoxFit.fill,
+                  //           image: AssetImage("assests/size.png"))),
+                  // ),
+                  Image.asset(
+                    "assests/size.png",
+                    height: 100,
+                    width: 200,
                   ),
-                  Image.asset("assests/logo trans Pb.png"),
+
                   Text(
                     "Enter Code",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -107,7 +108,7 @@ class _MyUserOTPScreenState extends State<MyUserOTPScreen> {
                     height: 2,
                   ),
                   Text(
-                    "with 6 digits code verification",
+                    "with 6 digits verification code.",
                     style: TextStyle(
                         // color: Color(0xff3e5d9d),
                         fontSize: 14,
@@ -127,63 +128,76 @@ class _MyUserOTPScreenState extends State<MyUserOTPScreen> {
                   SizedBox(
                     height: 20,
                   ),
-                  Pinput(
-                    obscureText: true,
-                    obscuringCharacter: "*",
-                    // withCursor: true,
-                    length: 6,
+                  Container(
+                    alignment: Alignment.center,
+                    height: height * 0.2,
+                    width: width,
+                    padding: EdgeInsets.only(right: 30, left: 30, bottom: 30),
+                    // margin: EdgeInsets.only(bottom: 20),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey.shade400),
+                        color: Color(0xfff5f5f5),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Pinput(
+                      obscureText: true,
+                      obscuringCharacter: "*",
+                      // withCursor: true,
+                      length: 6,
 
-                    androidSmsAutofillMethod:
-                        AndroidSmsAutofillMethod.smsRetrieverApi,
-                    defaultPinTheme: PinTheme(
-                      width: 56,
-                      height: 56,
-                      textStyle: TextStyle(
-                          fontSize: 20,
-                          color: Colors.deepOrange,
-                          fontWeight: FontWeight.w600),
-                      decoration: BoxDecoration(
-                        border:
-                            Border.all(color: Color.fromRGBO(234, 239, 243, 1)),
-                        borderRadius: BorderRadius.circular(20),
+                      androidSmsAutofillMethod:
+                          AndroidSmsAutofillMethod.smsRetrieverApi,
+                      defaultPinTheme: PinTheme(
+                        width: 56,
+                        height: 56,
+                        textStyle: TextStyle(
+                            fontSize: 20,
+                            color: Colors.deepOrange,
+                            fontWeight: FontWeight.w600),
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                                    width: 2, color: Colors.grey.shade300))),
                       ),
-                    ),
 
-                    focusNode: _pinPutFocusNode,
-                    controller: _pinPutController,
-                    onCompleted: (pin) async {
-                      setState(() {
-                        // loaderindicator = true;
-                      });
-                      try {
-                        await FirebaseAuth.instance
-                            .signInWithCredential(PhoneAuthProvider.credential(
-                                verificationId: _verificationCode,
-                                smsCode: pin))
-                            .then((value) async {
-                          print(value);
-                          if (value.user != null) {
-                            print("that is a valid code");
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Mall(
-                                          index: 0,
-                                        )),
-                                (route) => false);
-                          }
-                        });
-
+                      focusNode: _pinPutFocusNode,
+                      controller: _pinPutController,
+                      onCompleted: (pin) async {
                         setState(() {
-                          loaderindicator = false;
+                          // loaderindicator = true;
                         });
-                      } catch (e) {
-                        FocusScope.of(context).unfocus();
-                        // ignore: deprecated_member_use
-                        _scaffoldKey.currentState!.showSnackBar(
-                            SnackBar(content: Text('Invalid OTP')));
-                      }
-                    },
+                        try {
+                          await FirebaseAuth.instance
+                              .signInWithCredential(
+                                  PhoneAuthProvider.credential(
+                                      verificationId: _verificationCode,
+                                      smsCode: pin))
+                              .then((value) async {
+                            print(value);
+                            if (value.user != null) {
+                              print("that is a valid code");
+                              createuser();
+
+                              // Navigator.pushAndRemoveUntil(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => Mall(
+                              //               index: 0,
+                              //             )),
+                              //     (route) => false);
+                            }
+                          });
+
+                          setState(() {
+                            loaderindicator = false;
+                          });
+                        } catch (e) {
+                          FocusScope.of(context).unfocus();
+                          // ignore: deprecated_member_use
+                          // _scaffoldKey.currentState!.showSnackBar(
+                          //     SnackBar(content: Text('Invalid OTP')));
+                        }
+                      },
+                    ),
                   ),
 
                   // Padding(
@@ -218,24 +232,37 @@ class _MyUserOTPScreenState extends State<MyUserOTPScreen> {
                   Container(
                       margin: EdgeInsets.only(top: 20),
                       child: showResend
-                          ? Row(
+                          ? Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("Didn't Receive? "),
-                                TextButton(
-                                  onPressed: (() async {
-                                    await _verifyPhone();
-                                    setState(() {
-                                      showResend = false;
-                                      controller.restart(duration: 60);
-                                    });
+                                Text("Did not receive the code? "),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    TextButton(
+                                      onPressed: (() async {
+                                        await _verifyPhone();
+                                        setState(() {
+                                          showResend = false;
+                                          controller.restart(duration: 60);
+                                        });
 
-                                    SnackBar(content: Text("Code resent"));
-                                  }),
-                                  child: Text(
-                                    "Click Here",
-                                    style: TextStyle(color: Color(0xffe75517)),
-                                  ),
+                                        SnackBar(content: Text("Code resent"));
+                                      }),
+                                      child: Text(
+                                        "Re-send?",
+                                        style:
+                                            TextStyle(color: Color(0xffe75517)),
+                                      ),
+                                    ),
+                                    Text(
+                                      "Get a call now?",
+                                      style: TextStyle(
+                                          color: Color(0xffe75517),
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ],
                                 ),
                               ],
                             )
@@ -261,6 +288,41 @@ class _MyUserOTPScreenState extends State<MyUserOTPScreen> {
         ),
       ),
     );
+  }
+
+  createuser() async {
+    Map data = {
+      "firstName": widget.Name.toString(),
+      "lastName": widget.LastName.toString(),
+      "password": widget.Password.toString(),
+      "email": widget.Email.toString(),
+      "phone": "+92" + widget.Phone.toString(),
+      "type": "Customer"
+    };
+    await UserService().postApi("/user/signUp", data).then((value) {
+      print(value);
+      if (value["success"] == true) {
+        var user = value["response"];
+        UserService().setUser(user).then((value) {
+          print("user is set");
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Mall(
+                        index: 0,
+                      )),
+              (route) => false);
+        });
+      } else {
+        showMessage(context, "Something Went Wrong Please try again!");
+      }
+    });
+  }
+
+  static showMessage(context, msg) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(msg),
+    ));
   }
 
   _verifyPhone() async {
@@ -326,11 +388,6 @@ class _MyUserOTPScreenState extends State<MyUserOTPScreen> {
   @override
   void initState() {
     super.initState();
-    print(widget.Name);
-    print(widget.Email);
-    print(widget.Password);
-
-    print(widget.Phone);
 
     _verifyPhone();
   }

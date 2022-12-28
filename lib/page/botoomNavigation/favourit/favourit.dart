@@ -83,7 +83,7 @@ class _FavouritPageState extends State<FavouritPage> {
           Container(
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                     image: AssetImage("assests/buildings.png"))),
           ),
           SingleChildScrollView(
@@ -96,7 +96,7 @@ class _FavouritPageState extends State<FavouritPage> {
                           elevation: 10,
                           color: Color(0xfffac4aa),
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50)),
+                              borderRadius: BorderRadius.circular(30)),
                           margin: EdgeInsets.only(top: 10, bottom: 10),
                           child: Container(
                               height: height * 0.2 - 25,
@@ -112,8 +112,8 @@ class _FavouritPageState extends State<FavouritPage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
-                                        margin: EdgeInsets.only(left: 15),
-                                        height: height * 0.1 + 30,
+                                        margin: EdgeInsets.only(left: 5),
+                                        height: height * 0.1 + 40,
                                         width: width * 0.3 + 15,
                                         decoration: BoxDecoration(
                                             // color: Colors.black,
@@ -122,10 +122,11 @@ class _FavouritPageState extends State<FavouritPage> {
                                                 image: AssetImage(
                                                     list[index]["image"])),
                                             borderRadius:
-                                                BorderRadius.circular(10)),
+                                                BorderRadius.circular(30)),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(top: 15),
+                                        padding: const EdgeInsets.only(
+                                            top: 15, left: 10, right: 10),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -141,7 +142,7 @@ class _FavouritPageState extends State<FavouritPage> {
                                                   left: 0, right: 0, top: 10),
                                               child: Container(
                                                 height: 90,
-                                                width: 180,
+                                                width: 190,
                                                 child: Text(
                                                   list[index]["sub"],
                                                   // strutStyle: ,

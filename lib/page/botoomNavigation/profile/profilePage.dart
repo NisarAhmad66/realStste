@@ -20,6 +20,7 @@ class _ProfilePageState extends State<ProfilePage> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+        backgroundColor: Color(0xffEBE9E8),
         bottomNavigationBar: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [Image.asset("assests/Group 37.png")],
@@ -231,12 +232,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen()));
-                      },
+                      onTap: () {},
                       child: Container(
                         margin: EdgeInsets.only(top: 15),
                         // height: 45,

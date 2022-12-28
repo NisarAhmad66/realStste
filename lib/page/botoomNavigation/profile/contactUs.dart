@@ -30,7 +30,7 @@ class _ContactUsState extends State<ContactUs> {
                   const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
               hintText: 'Name..',
               // fillColor: Color(0xfff2f2f2),
-              fillColor: Color.fromARGB(255, 244, 238, 238),
+              fillColor: Colors.white,
               filled: true,
               border: OutlineInputBorder(
                   borderSide: BorderSide.none,
@@ -67,7 +67,7 @@ class _ContactUsState extends State<ContactUs> {
                   const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
               hintText: 'Subject..',
               // fillColor: Color(0xfff2f2f2),
-              fillColor: Color.fromARGB(255, 244, 238, 238),
+              fillColor: Colors.white,
               filled: true,
               border: OutlineInputBorder(
                   borderSide: BorderSide.none,
@@ -104,7 +104,7 @@ class _ContactUsState extends State<ContactUs> {
                   const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
               hintText: 'Email..',
               // fillColor: Color(0xfff2f2f2),
-              fillColor: Color.fromARGB(255, 244, 238, 238),
+              fillColor: Colors.white,
               filled: true,
               border: OutlineInputBorder(
                   borderSide: BorderSide.none,
@@ -144,7 +144,7 @@ class _ContactUsState extends State<ContactUs> {
                     const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
                 hintText: 'Message..',
                 // fillColor: Color(0xfff2f2f2),
-                fillColor: Color.fromARGB(255, 244, 238, 238),
+                fillColor: Colors.white,
                 filled: true,
                 border: OutlineInputBorder(
                     borderSide: BorderSide.none,
@@ -161,6 +161,7 @@ class _ContactUsState extends State<ContactUs> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Color(0xffEBE9E8),
       appBar: AppBar(
         leading: InkWell(
             onTap: () {

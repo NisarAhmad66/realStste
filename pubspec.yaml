@@ -60,6 +60,9 @@ dependencies:
   firebase_auth: ^3.3.20
   firebase_storage: ^10.2.18
   cloud_firestore: ^3.1.18
+  image_picker: ^0.8.4+11
+  get: ^4.6.5
+  dotted_border: ^2.0.0+2
   # custom_switch: ^0.0.1
 
 dev_dependencies:

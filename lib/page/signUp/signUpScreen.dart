@@ -20,12 +20,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool value = false;
 
   bool _passwordVisible = false;
+  bool conffrimPass = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     setState(() {
       _passwordVisible = false;
+      conffrimPass = false;
     });
   }
 
@@ -43,7 +45,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
             hintText: 'First Name..',
             // fillColor: Color(0xfff2f2f2),
-            fillColor: Color.fromARGB(255, 244, 238, 238),
+            fillColor: Colors.white,
             filled: true,
             border: OutlineInputBorder(
                 borderSide: BorderSide.none,
@@ -85,7 +87,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
             hintText: 'Last Name..',
             // fillColor: Color(0xfff2f2f2),
-            fillColor: Color.fromARGB(255, 244, 238, 238),
+            fillColor: Colors.white,
             filled: true,
             border: OutlineInputBorder(
                 borderSide: BorderSide.none,
@@ -127,7 +129,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
             hintText: 'Email..',
             // fillColor: Color(0xfff2f2f2),
-            fillColor: Color.fromARGB(255, 244, 238, 238),
+            fillColor: Colors.white,
             filled: true,
             border: OutlineInputBorder(
                 borderSide: BorderSide.none,
@@ -173,7 +175,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
               hintText: 'City..',
               // fillColor: Color(0xfff2f2f2),
-              fillColor: Color.fromARGB(255, 244, 238, 238),
+              fillColor: Colors.white,
               filled: true,
               border: OutlineInputBorder(
                   borderSide: BorderSide.none,
@@ -210,7 +212,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
               hintText: 'Password..',
               // fillColor: Color(0xfff2f2f2),
-              fillColor: Color.fromARGB(255, 244, 238, 238),
+              fillColor: Colors.white,
               filled: true,
               border: OutlineInputBorder(
                   borderSide: BorderSide.none,
@@ -250,18 +252,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
       child: TextFormField(
         style: TextStyle(color: Colors.black),
         keyboardType: TextInputType.emailAddress,
-        obscureText: !_passwordVisible,
+        obscureText: !conffrimPass,
         decoration: InputDecoration(
             // enabledBorder: InputBorder.none,
             suffixIcon: InkWell(
               onTap: () {
                 setState(() {
-                  _passwordVisible = !_passwordVisible;
+                  conffrimPass = !conffrimPass;
                 });
               },
               child: Icon(
                 Icons.remove_red_eye_outlined,
-                color: _passwordVisible ? Colors.blue : Colors.black,
+                color: conffrimPass ? Colors.blue : Colors.black,
               ),
             ),
             hoverColor: Colors.white,
@@ -270,7 +272,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
             hintText: 'Confrim Password..',
             // fillColor: Color(0xfff2f2f2),
-            fillColor: Color.fromARGB(255, 244, 238, 238),
+            fillColor: Colors.white,
             filled: true,
             border: OutlineInputBorder(
                 borderSide: BorderSide.none,
@@ -294,38 +296,70 @@ class _SignUpScreenState extends State<SignUpScreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      // backgroundColor:
-      //     Provider.of<ThemeProvider>(context).themeMode == ThemeMode.light
-      //         ? Colors.black
-      //         : Color.fromARGB(255, 239, 236, 236),
+      backgroundColor: Color(0xffEBE9E8),
+      appBar: AppBar(
+        shape: Border(bottom: BorderSide(color: Colors.grey, width: 1)),
+        leading: Padding(
+          padding: const EdgeInsets.only(top: 30, left: 10),
+          child: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => ProfilePage()));
+            },
+            // child: Icon(
+            //   Icons.arrow_back_ios_outlined,
+            //   color: Colors.grey,
+            // )
+            child: Text("Back",
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xffe75517))),
+          ),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        toolbarHeight: 120,
+        centerTitle: true,
+        title: Text(
+          "Sign Up",
+          style: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+              color: Color(0xffe75517)),
+        ),
+
+        // iconTheme: IconThemeData(color: Colors.black),
+      ),
       body: SingleChildScrollView(
           child: Form(
         key: logInformKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              alignment: Alignment.center,
-              height: height * 0.2 - 20,
-              // color: Colors.amber,
-              decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.grey, // red as border color
-                  ),
-                  image: DecorationImage(
-                      image: AssetImage("assests/Sign Up.png"))),
-              child: Stack(
-                children: [
-                  Positioned(
-                      left: 15,
-                      top: 60,
-                      child: Icon(
-                        Icons.arrow_back_ios_new,
-                        color: Colors.grey,
-                      )),
-                ],
-              ),
-            ),
+            // Container(
+            //   alignment: Alignment.center,
+            //   height: height * 0.2 - 20,
+            //   // color: Colors.amber,
+            //   decoration: BoxDecoration(
+            //       border: Border.all(
+            //         color: Colors.grey, // red as border color
+            //       ),
+            //       image: DecorationImage(
+            //           image: AssetImage("assests/Sign Up.png"))),
+            //   child: Stack(
+            //     children: [
+            //       Positioned(
+            //           left: 15,
+            //           top: 60,
+            //           child: Icon(
+            //             Icons.arrow_back_ios_new,
+            //             color: Colors.grey,
+            //           )),
+            //     ],
+            //   ),
+            // ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
               child: Column(
@@ -447,7 +481,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => OtpCode(
-                                      Name: first.text + " " + last.text,
+                                      Name: first.text,
+                                      LastName: last.text,
                                       Email: email.text,
                                       Password: pass.text,
                                     )));
